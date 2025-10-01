@@ -16,7 +16,7 @@ dotenv.config();
 const app = express()
 const Port = 5001;
 app.use(cors({
-    origin:"https://hrms-frontend-2tv4.vercel.app/login",
+    origin:"https://hrms-frontend-2tv4.vercel.app",
       credentials: true ,
 }))
 app.use(express.json())
