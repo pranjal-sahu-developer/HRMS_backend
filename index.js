@@ -15,10 +15,27 @@ import path from "path";
 dotenv.config();
 const app = express()
 const Port = 5001;
-app.use(cors({
-    origin:"https://hrms-frontend-2tv4.vercel.app",
-      credentials: true ,
-}))
+// app.use(cors({
+//     origin:"https://hrms-frontend-2tv4.vercel.app",
+//       credentials: true ,
+// }))
+const allowedOrigins = [
+  "http://localhost:5173", // for local development
+  "https://hrms-frontend-2tv4.vercel.app" // for production
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true
+  })
+);
 app.use(express.json())
 
 app.use("/api/auth", authRouter);
